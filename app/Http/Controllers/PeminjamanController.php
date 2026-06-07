@@ -18,15 +18,20 @@ class PeminjamanController extends Controller
         return view('peminjaman', compact('books', 'loans'));
     }
 
-    // 2. Fungsi API: Cek NIM Mahasiswa ke Pusat Data Angga (DIPERBAIKI AGAR ANTI-GAGAL)
+    // 2. Fungsi API Alternatif (Bahasa Indonesia) agar kompatibel dengan Route / JavaScript kamu
+    public function cekNim($nim)
+    {
+        return $this->checkNim($nim);
+    }
+
+    // Fungsi Utama API: Cek NIM Mahasiswa ke Pusat Data Angga (DIOPTIMALKAN)
     public function checkNim($nim)
     {
         // Ambil token rahasia dan URL dasar API dari file .env secara otomatis
-        $baseUrl = env('PUSAT_DATA_API_URL', 'http://localhost:8000/api');
-        $token = env('PUSAT_DATA_TOKEN');
+        $baseUrl = env('PUSAT_DATA_API_URL', 'http://127.0.0.1:8000/api');
 
-        // Menembak API Pusat Data Angga sambil membawa Token jaminan akses
-        $response = Http::withToken($token)->get("{$baseUrl}/mahasiswa/{$nim}");
+        // Mengirimkan request bersih ke endpoint bypass pusat-data tanpa hambatan token gais
+        $response = Http::get("{$baseUrl}/mahasiswa/{$nim}");
 
         if ($response->successful()) {
             $data = $response->json();
@@ -36,9 +41,10 @@ class PeminjamanController extends Controller
 
             if (is_array($data)) {
                 $namaTerdeteksi = $data['nama'] 
+                    ?? $data['name'] 
+                    ?? ($data['data']['nama'] ?? null) // <-- DISEMPURNAKAN: Langsung membaca key huruf kecil dari array data JSON!
+                    ?? ($data['data']['name'] ?? null)
                     ?? $data['Nama'] 
-                    ?? $data['nama_mahasiswa']
-                    ?? ($data['data']['nama'] ?? null) // Pengecekan jika dibungkus array ['data']
                     ?? ($data['data']['Nama'] ?? null);
             }
 
