@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Buku extends Model
+class Setting extends Model
 {
     use HasFactory;
 
-    // Memaksa Laravel mencari tabel 'bukus'
-    protected $table = 'bukus';
-
+    // KODE SAKTI PENJINAK EROR: Memberikan izin mass assignment gais
     protected $fillable = [
-        'kode_buku',
-        'judul_buku',
-        'pengarang',
+        'key',
+        'value',
     ];
 }

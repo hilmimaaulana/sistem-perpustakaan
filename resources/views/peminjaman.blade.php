@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2=family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
@@ -99,7 +99,7 @@
                     <table class="w-full text-left border-collapse whitespace-nowrap">
                         <thead>
                             <tr class="bg-slate-50 border-b border-slate-200/60 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                <th class="px-5 py-3.5 sm:px-6">NIM</th>
+                                <th class="px-5 py-3.5 sm:px-6">NIM / NIP</th>
                                 <th class="px-5 py-3.5 sm:px-6">Kode Buku</th>
                                 <th class="px-5 py-3.5 sm:px-6">Tanggal Pinjam</th>
                                 <th class="px-5 py-3.5 sm:px-6 text-center">Status</th>
@@ -116,9 +116,15 @@
                                     </td>
                                     <td class="px-5 py-4 sm:px-6 text-slate-500 font-medium">{{ date('d M Y', strtotime($loan->tanggal_pinjam)) }}</td>
                                     <td class="px-5 py-4 sm:px-6 text-center">
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200/60 shadow-sm">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span> Dipinjam
-                                        </span>
+                                        @if(strtolower($loan->status ?? 'dipinjam') == 'dipinjam')
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200/60 shadow-sm">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span> Dipinjam
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/60 shadow-sm">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> Dikembalikan
+                                            </span>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
