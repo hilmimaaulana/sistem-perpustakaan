@@ -10,7 +10,15 @@
     <div class="row">
         <div class="col-md-12 mb-4">
             <div class="card shadow border-0">
-                <div class="card-header bg-dark text-white">⚙️ Konfigurasi Sistem (API)</div>
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <span>⚙️ Konfigurasi Sistem (API)</span>
+                    <form action="{{ route('admin.logout') }}" method="POST" class="m-0">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-danger font-weight-bold shadow-sm">
+                            🚪 Keluar Sistem
+                        </button>
+                    </form>
+                </div>
                 <div class="card-body">
                     <form action="{{ route('admin.settings.update') }}" method="POST">
                         @csrf

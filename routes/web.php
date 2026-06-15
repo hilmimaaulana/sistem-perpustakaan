@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController; // <-- WAJIB PANGGIL CONTROLLER LOGIN BARU GAIS
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +26,24 @@ Route::get('/check-nim/{nim}', [PeminjamanController::class, 'checkNim']);
 
 
 // ==========================================
-// ⚙️ JALUR DASHBOARD ADMIN (FITUR BARU)
+// 🔐 JALUR GERBANG MASUK ADMIN (AUTENTIKASI)
 // ==========================================
 
-Route::prefix('admin')->group(function () {
+// Tampilan Halaman Form Login Admin gais
+Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
+
+// Proses Validasi Form Login saat Tombol Masuk diklik gais
+Route::post('/admin/login', [AuthController::class, 'login'])->name('admin.login.submit');
+
+// Proses Keluar Sistem (Logout) Admin gais
+Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
+
+
+// ==========================================
+// ⚙️ JALUR DASHBOARD ADMIN (DILINDUNGI SATPAM GAIS)
+// ==========================================
+
+Route::prefix('admin')->middleware(['admin.auth'])->group(function () {
     // Menampilkan Halaman Utama Dashboard Admin (CRUD Buku & Input API Token)
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     
