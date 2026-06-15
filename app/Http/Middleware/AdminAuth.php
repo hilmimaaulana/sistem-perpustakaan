@@ -19,7 +19,7 @@ class AdminAuth
         // JIKA TIDAK ADA MEMORI SESSION LOGIN ADMIN, KITA USIR GAIS!
         // Langsung dilempar balik ke halaman login dengan pesan peringatan eror
         if (!session()->has('admin_logged_in')) {
-            return redirect()->route('admin.login')->withErrors(['error' => 'Silakan login terlebih dahulu gais!']);
+            return redirect()->route('admin.login')->withErrors(['error' => 'Silakan login terlebih dahulu']);
         }
 
         // Jika lolos (sudah login), izinkan masuk ke dashboard gais
