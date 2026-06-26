@@ -22,4 +22,12 @@ class Peminjaman extends Model
         'tanggal_kembali',
         'status', // <-- KITA TAMBAHKAN INI AGAR SAKLAR STATUS DI ADMIN BISA DIUBAH GAIS!
     ];
+
+    /**
+     * Relationship ke tabel Buku
+     */
+    public function buku()
+    {
+        return $this->belongsTo(Buku::class, 'kode_buku', 'kode_buku');
+    }
 }

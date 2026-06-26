@@ -26,12 +26,22 @@
     </div>
 
     @if(session('success'))
-        <div class="mb-6 flex items-start sm:items-center justify-between p-4 text-sm text-emerald-800 rounded-xl bg-emerald-50/80 border border-emerald-200 backdrop-blur-sm shadow-sm" id="alert-box">
+        <div class="mb-6 flex items-start sm:items-center justify-between p-4 text-sm text-emerald-800 rounded-xl bg-emerald-50/80 border border-emerald-200 backdrop-blur-sm shadow-sm" id="success-alert">
             <div class="flex items-center gap-2.5 font-medium">
                 <span class="flex-shrink-0 bg-emerald-100 text-emerald-700 w-5 h-5 rounded-full flex items-center justify-center text-xs">✔</span>
                 <span>{{ session('success') }}</span>
             </div>
-            <button type="button" onclick="document.getElementById('alert-box').remove()" class="text-emerald-500 hover:text-emerald-700 font-semibold text-xl leading-none ml-3">&times;</button>
+            <button type="button" onclick="document.getElementById('success-alert').remove()" class="text-emerald-500 hover:text-emerald-700 font-semibold text-xl leading-none ml-3">&times;</button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="mb-6 flex items-start sm:items-center justify-between p-4 text-sm text-rose-800 rounded-xl bg-rose-50/80 border border-rose-200 backdrop-blur-sm shadow-sm" id="error-alert">
+            <div class="flex items-center gap-2.5 font-medium">
+                <span class="flex-shrink-0 bg-rose-100 text-rose-700 w-5 h-5 rounded-full flex items-center justify-center text-xs">✖</span>
+                <span>{{ session('error') }}</span>
+            </div>
+            <button type="button" onclick="document.getElementById('error-alert').remove()" class="text-rose-500 hover:text-rose-700 font-semibold text-xl leading-none ml-3">&times;</button>
         </div>
     @endif
 
